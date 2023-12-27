@@ -3,7 +3,7 @@ from moviepy.editor import * # type: ignore
 clip = VideoFileClip("example.mp4") #example clip
 
 #Cropping Clips
-sub_clip = clip.subclip(0, 100) #crops the clip from 0 to 2 seconds
+sub_clip = clip.subclip(0, 100) #crops the clip from 0 to 100 seconds
 
 #Adjusting volume of sub_clip idrk why it doesnt work for VideoFileClip
 volume_clip = sub_clip.volumex(0.8)
