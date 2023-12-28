@@ -1,5 +1,7 @@
 import json
 import praw
+import itertools
+import random
 
 with open("Reddit API/redditapiclient.json") as json_data:
     redditkeys = json.load(json_data)
@@ -10,7 +12,15 @@ reddit = praw.Reddit(
     user_agent = "subfetcherv1"
 )
 
-subreddit = reddit.subreddit("test")
+post_list = []
 
-for submission in subreddit.top(limit=2):
-    print(submission.selftext)
+subreddit = reddit.subreddit("AmITheAsshole")
+
+for submissions in subreddit.top(limit=20):
+    post_list.append(submissions.selftext)
+
+random_post = random.choice(post_list)
+print(random_post)
+
+with open('randompost.txt', 'w', encoding='utf-8') as post:
+    post.write(random_post)
