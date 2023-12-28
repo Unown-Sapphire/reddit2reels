@@ -24,3 +24,5 @@ print(random_post)
 
 with open('randompost.txt', 'w', encoding='utf-8') as post:
     post.write(random_post)
+
+update_variable = 0
