@@ -5,9 +5,9 @@ with open("Reddit API/redditapiclient.json") as json_data:
     redditkeys = json.load(json_data)
 
 reddit = praw.Reddit(
-    client_id = "-4WA2RrwmCqDytJam4HnzA",
-    client_secret = "oVVMVjxSiUr0iGF6NVYF2zQawk13Jw",
-    user_agent = "subfetcherv1"
+    client_id = redditkeys["client_id"],
+    client_secret = redditkeys["client_secret"],
+    user_agent = redditkeys["user_agent"]
 )
 
 subreddit = reddit.subreddit("test")
