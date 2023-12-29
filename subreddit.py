@@ -14,9 +14,9 @@ reddit = praw.Reddit(
 
 post_list = []
 
-subreddit_list = ["AmITheAsshole", "tifu", ]
+subreddit_list = ["AmITheAsshole", "tifu"]
 
-subreddit = reddit.subreddit("AmITheAsshole")
+subreddit = reddit.subreddit(random.choice(subreddit_list))
 
 for submissions in subreddit.hot(limit=20):
     post_list.append(submissions.selftext)
