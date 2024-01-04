@@ -1,5 +1,4 @@
 import gtts
-from io import BytesIO
 
 with open ("randompost.txt") as randomposts:
     posts = randomposts.read()
