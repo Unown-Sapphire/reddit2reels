@@ -1,9 +1,8 @@
-from gtts import gTTS
+import gtts
 
-with open(file="randompost.txt", mode="r") as f:  
-  mylist = [line.rstrip('\n') for line in f]
-  print(mylist)
-  newstr = ','.join(mylist)
-  tts_post = gTTS(text=newstr, lang_check='en')
+with open ("randompost.txt", encoding='utf-8') as randomposts:
+    posts = randomposts.read()
 
-tts_post.write_to_fp('test.mp3')
+tts = gtts.gTTS(str(posts), lang="en-us", tld="us")
+
+tts.save('test.mp3')
