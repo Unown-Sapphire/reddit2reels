@@ -28,7 +28,13 @@ random_title = title_list[post_list.index(random_post)]
 print(random_title)
 print(random_post)
 
-with open('randompost.txt', 'w', encoding='utf-8') as post:
+with open('randompost.txt', 'r+', encoding='utf-8') as post:
     post.write(random_title)
     post.write('\n')
     post.write(random_post)
+    lines = post.readlines()
+    word = "AITA"
+    for line in lines:
+        if line.find("AITA") != -1:
+            print(word, 'string exists in file')
+            new_line = line.replace('AITA', "Am I the asshole")
