@@ -1,16 +1,9 @@
-from openai import * 
-client  = OpenAI(
-    api_key="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"
-)
+from gtts import gTTS
 
-headers = {
-    "Content-Type" : "text/plain",
-    "Authorization": "Bearer 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"
-}
+with open(file="randompost.txt", mode="r") as f:  
+  mylist = [line.rstrip('\n') for line in f]
+  print(mylist)
+  newstr = ','.join(mylist)
+  tts_post = gTTS(text=newstr, lang_check='en')
 
-audio_file= open("test.mp3", "rb")
-transcript = client.audio.transcriptions.create(
-  model="whisper-1", 
-  file=audio_file
-)
-print(transcript)
+tts_post.write_to_fp('test.mp3')
