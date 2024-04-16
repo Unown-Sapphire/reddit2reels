@@ -1,3 +1,6 @@
+with open('randompost.txt', 'r+', encoding='utf-8') as clear:
+    clear.truncate(0)
+
 import json
 import praw
 import itertools
@@ -28,15 +31,16 @@ random_title = title_list[post_list.index(random_post)]
 print(random_title)
 print(random_post)
 
-with open('randompost.txt', 'r+', encoding='utf-8') as clear:
-    clear.truncate(0)
-
 with open('randompost.txt', 'r+', encoding='utf-8') as post:
     post.write(random_title)
     post.write('\n')
     post.write(random_post)
+    post.seek(0)  # Reset file pointer to the beginning of the file
     lines = post.readlines()
     word = "AITA"
     for line in lines:
         if line.find("AITA") != -1:
             print(word, 'string exists in file')
+            new_line = line.replace("AITA", "Am I the asshole")
+            
+    post.write(new_line)
