@@ -2,7 +2,6 @@ import gtts
 import ffmpeg_downloader 
 from pydub import AudioSegment
 from pydub.effects import speedup
-import subreddit
 
 with open ("randompost.txt", encoding='utf-8') as randomposts:
     posts = randomposts.read()
