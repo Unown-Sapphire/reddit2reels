@@ -1,7 +1,10 @@
+with open('randompost.txt', 'r+', encoding='utf-8') as clear:
+    clear.truncate(0)
+
 import json
 import praw
-import itertools
 import random
+
 
 with open("Reddit API/redditapiclient.json") as json_data:
     redditkeys = json.load(json_data)
@@ -11,6 +14,7 @@ reddit = praw.Reddit(
     client_secret = redditkeys["client_secret"],
     user_agent = redditkeys["user_agent"]
 )
+
 
 post_list = []
 title_list = []
@@ -28,8 +32,6 @@ random_title = title_list[post_list.index(random_post)]
 print(random_title)
 print(random_post)
 
-with open('randompost.txt', 'r+', encoding='utf-8') as clear:
-    clear.truncate(0)
 
 with open('randompost.txt', 'r+', encoding='utf-8') as post:
     post.write(random_title)

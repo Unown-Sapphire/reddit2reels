@@ -1,19 +1,13 @@
 from moviepy.editor import * # type: ignore
-import subreddit
-import tts_audio
 
+def videoEditing():
+    videoclip = VideoFileClip("videos/example.mp4")
+    audioclip = AudioFileClip("test.mp3")
 
+    new_audioclip = CompositeAudioClip([audioclip])
+    videoclip.audio = new_audioclip
+    sub_clip = videoclip.subclip(0, 64) #crops the clip from 0 to 100 seconds
+    sub_clip = sub_clip.resize
+    sub_clip.write_videofile("videos/export.mp4")
 
-# def videoEditing():
-#     clip = VideoFileClip("example.mp4") #example clip
-
-#     #Cropping Clips
-#     sub_clip = clip.subclip(0, 100) #crops the clip from 0 to 100 seconds
-
-#     #Adjusting volume of sub_clip idrk why it doesnt work for VideoFileClip
-#     volume_clip = sub_clip.volumex(0.8)
-
-#     txt_clip = TextClip("Example Text",fontsize=70,color='white')
-#     txt_clip = txt_clip.set_duration(10)
-
-#     video = CompositeVideoClip([clip, txt_clip]) #mixing the clip and video clip 
+videoEditing()
