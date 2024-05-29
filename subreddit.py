@@ -19,6 +19,16 @@ reddit = praw.Reddit(
 post_list = []
 title_list = []
 
+def replace_abbreviations(text):
+    replacements = {
+        "AITA": "Am I the asshole",
+        "TIFU": "Today I fucked up"
+    }
+
+    for abbreviation, replacement in replacements.items():
+        text = text.replace(abbreviation, replacement)
+    return text
+
 subreddit_list = ["AmITheAsshole", "tifu"]
 
 subreddit = reddit.subreddit(random.choice(subreddit_list))
@@ -36,12 +46,8 @@ with open('randompost.txt', 'r+', encoding='utf-8') as post:
     post.write(random_title)
     post.write('\n')
     post.write(random_post)
-    post.seek(0)  # Reset file pointer to the beginning of the file
-    lines = post.readlines()
-    word = "AITA"
-    for line in lines:
-        if line.find("AITA") != -1:
-            print(word, 'string exists in file')
-            new_line = line.replace("AITA", "Am I the asshole")
-            
-    post.write(new_line)
+    post.seek(0)
+    new_text = replace_abbreviations(post.read())
+    post.seek(0)
+    post.truncate(0)
+    post.write(new_text)
