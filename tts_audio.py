@@ -13,7 +13,7 @@ tts.save('test.mp3')
 
 sound = AudioSegment.from_mp3("test.mp3")
 sound = speedup(seg=sound, playback_speed=1.2)
-sound.export("videos/spedup.mp3", format="mp3")
+sound.export("videos/spedup.mp3", format="mp3")  
 
 model = whisper.load_model("base")
 result = model.transcribe("videos/spedup.mp3")
