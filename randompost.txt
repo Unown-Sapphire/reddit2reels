@@ -1,0 +1,4 @@
+<<<<<<< HEAD
+Testing different anchors
+=======
+>>>>>>> b4cf5e5 (minor changes to each file)
