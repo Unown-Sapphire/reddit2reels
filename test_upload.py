@@ -29,7 +29,7 @@ create_button = wait.until(EC.presence_of_element_located((By.XPATH , "/html/bod
 post_button = wait.until(EC.presence_of_element_located((By.XPATH , "/html/body/div[2]/div/div/div[2]/div/div/div[1]/div[1]/div[1]/div/div/div/div/div[2]/div[7]/div/span/div/div/div/div[1]/a[1]"))).click()
 select_from_computer = wait.until(EC.presence_of_element_located((By.XPATH, "/html/body/div[6]/div[1]/div/div[3]/div/div/div/div/div/div/div/div[2]/div[1]/div/div/div[2]/div/button"))).click()
 time.sleep(5)
-pyautogui.write(r'c:\Users\dmneh\Desktop\ADHDTrap\videos\export.mp4', interval=0.05)
+pyautogui.write(r'\ADHDTrap\videos\export.mp4', interval=0.05)
 pyautogui.press('enter')
 
 time.sleep(2)

@@ -29,7 +29,7 @@ def replace_abbreviations(text):
         text = text.replace(abbreviation, replacement)
     return text
 
-subreddit_list = ["AmITheAsshole", "tifu"]
+subreddit_list = ["AmITheAsshole", "tifu", "oddlysatisfying"]
 
 subreddit = reddit.subreddit(random.choice(subreddit_list))
 

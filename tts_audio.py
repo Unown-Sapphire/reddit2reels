@@ -18,5 +18,5 @@ sound.export("videos/spedup.mp3", format="mp3")
 model = whisper.load_model("base")
 result = model.transcribe("videos/spedup.mp3")
 
-srt_writer = get_writer(output_format="srt", output_dir="C:/Users/dmneh/Desktop/ADHDTrap/")
-srt_writer(result, "C:/Users/dmneh/Desktop/ADHDTrap/videos/spedup.mp3")
+srt_writer = get_writer(output_format="srt", output_dir="ADHDTrap/")
+srt_writer(result, "ADHDTrap/videos/spedup.mp3")
