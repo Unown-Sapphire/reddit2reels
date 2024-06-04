@@ -5,8 +5,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.action_chains import ActionChains
 import pyautogui
+from subreddit import random_title
 
 chrome_driver_path = "C:/Users/dmneh/Downloads/chromedriver-win64/chromedriver-win64/chromdriver.exe"
 
@@ -29,7 +29,7 @@ create_button = wait.until(EC.presence_of_element_located((By.XPATH , "/html/bod
 post_button = wait.until(EC.presence_of_element_located((By.XPATH , "/html/body/div[2]/div/div/div[2]/div/div/div[1]/div[1]/div[1]/div/div/div/div/div[2]/div[7]/div/span/div/div/div/div[1]/a[1]"))).click()
 select_from_computer = wait.until(EC.presence_of_element_located((By.XPATH, "/html/body/div[6]/div[1]/div/div[3]/div/div/div/div/div/div/div/div[2]/div[1]/div/div/div[2]/div/button"))).click()
 time.sleep(5)
-pyautogui.write(r'\ADHDTrap\videos\export.mp4', interval=0.05)
+pyautogui.write(r'C:\Users\dmneh\Desktop\ADHDTrap\videos\export.mp4', interval=0.05)
 pyautogui.press('enter')
 
 time.sleep(2)
@@ -44,7 +44,7 @@ next2_button = wait.until(EC.presence_of_element_located((By.XPATH, "/html/body/
 
 time.sleep(3.5)
 
-caption_text = wait.until(EC.presence_of_element_located((By.XPATH, "/html/body/div[6]/div[1]/div/div[3]/div/div/div/div/div/div/div/div[2]/div[2]/div/div/div/div[1]/div[2]/div/div[1]/div[1]"))).send_keys("Test Caption, Hello I am reddit to reels how do you do?")
+caption_text = wait.until(EC.presence_of_element_located((By.XPATH, "/html/body/div[6]/div[1]/div/div[3]/div/div/div/div/div/div/div/div[2]/div[2]/div/div/div/div[1]/div[2]/div/div[1]/div[1]"))).send_keys(f'{random_title}')
 share_button = wait.until(EC.presence_of_element_located((By.XPATH, "/html/body/div[6]/div[1]/div/div[3]/div/div/div/div/div/div/div/div[1]/div/div/div/div[3]/div/div"))).click()
 
 time.sleep(300)
