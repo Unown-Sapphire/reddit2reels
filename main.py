@@ -10,7 +10,7 @@ print("Finished Composing Audio!")
 def videoEditing():
     #Collecting Video and Audio files
     videoclip = VideoFileClip("videos/example.mp4")
-    audioclip = AudioFileClip("videos/spedup.mp3")
+    audioclip = AudioFileClip("audios/spedup.mp3")
 
     #Merging audio with video
     new_audioclip = CompositeAudioClip([audioclip])
@@ -18,7 +18,7 @@ def videoEditing():
 
     audio_duration = audioclip.duration
     #Subtitles generator
-    generator = lambda txt: TextClip(txt, font='Arial', fontsize=80, color='white', method="caption", stroke_color="black", stroke_width=2, size=(1080, None))
+    generator = lambda txt: TextClip(txt, font='Ar ial', fontsize=80, color='white', method="caption", stroke_color="black", stroke_width=2, size=(1080, None))
     subs = SubtitlesClip('spedup.srt', generator)
     subtitles = SubtitlesClip(subs, generator)
     sub_clip = CompositeVideoClip([videoclip, subtitles.set_pos(('center','center'))])
@@ -28,3 +28,5 @@ def videoEditing():
     print("Your video is ready!")
 
 videoEditing()
+
+import instagram_automation
