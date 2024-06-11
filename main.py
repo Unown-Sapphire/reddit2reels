@@ -1,15 +1,17 @@
 from moviepy.editor import * # type: ignore
 from moviepy.video.tools.subtitles import SubtitlesClip
+import random
+# import subreddit
+# print("Found Subreddit post!")
 
-import subreddit
-print("Found Subreddit post!")
+# import tts_audio
+# print("Finished Composing Audio!")
 
-import tts_audio
-print("Finished Composing Audio!")
+n = random.randint(1,2)
 
 def videoEditing():
     #Collecting Video and Audio files
-    videoclip = VideoFileClip("videos/example.mp4")
+    videoclip = VideoFileClip(f"videos/example_{n}.mp4")
     audioclip = AudioFileClip("audios/spedup.mp3")
 
     #Merging audio with video
@@ -18,7 +20,7 @@ def videoEditing():
 
     audio_duration = audioclip.duration
     #Subtitles generator
-    generator = lambda txt: TextClip(txt, font='Arial', fontsize=85, color='white', method="caption", stroke_color="black", stroke_width=6, size=(1080, None))
+    generator = lambda txt: TextClip(txt, font=r'fonts/Burbank Big Condensed Black.otf', fontsize=100, color='white', method="caption", stroke_color="black", stroke_width=4, size=(1080, None))
     subs = SubtitlesClip('spedup.srt', generator)
     subtitles = SubtitlesClip(subs, generator)
     sub_clip = CompositeVideoClip([videoclip, subtitles.set_pos(('center','center'))])
