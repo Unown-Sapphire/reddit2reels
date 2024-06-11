@@ -25,7 +25,8 @@ def replace_abbreviations(text):
         "TIFU": "Today I fucked up",
         "TL;DR": "Too long didn't read",
         "Tl;dr": "Too long didn't read",
-        "tl;dr": "Too long didn't read"
+        "tl;dr": "Too long didn't read",
+        "FU": 'fucked up'
     }
 
     for abbreviation, replacement in replacements.items():

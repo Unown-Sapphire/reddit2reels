@@ -38,6 +38,12 @@ def split_text(text, max_length=250):
     if current_chunk:
         chunks.append(current_chunk.strip())
     
+    for chunk in chunks:
+        if chunk == ".":
+            chunks.pop(chunks.find(chunk))
+        else:
+            pass
+        
     return chunks
 
 # Function to synthesize chunks into audio segments
@@ -47,10 +53,10 @@ def synthesize_text(text):
     n = 1
     for chunk in chunks:
         if n <= 9:
-            audio_segments = tts.tts_to_file(chunk, speaker="Ana Florence", language="en", file_path=f"audios/line_0{n}.wav")
+            audio_segments = tts.tts_to_file(chunk, speaker="Abrahan Mack", language="en", file_path=f"audios/line_0{n}.wav")
             n+=1
         else:
-            audio_segments = tts.tts_to_file(chunk, speaker="Ana Florence", language="en", file_path=f"audios/line_{n}.wav")
+            audio_segments = tts.tts_to_file(chunk, speaker="Abrahan Mack", language="en", file_path=f"audios/line_{n}.wav")
             n+=1
 def combine_audio():
     audiosegment_list = []

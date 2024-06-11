@@ -18,7 +18,7 @@ def videoEditing():
 
     audio_duration = audioclip.duration
     #Subtitles generator
-    generator = lambda txt: TextClip(txt, font='Ar ial', fontsize=80, color='white', method="caption", stroke_color="black", stroke_width=2, size=(1080, None))
+    generator = lambda txt: TextClip(txt, font='Arial', fontsize=85, color='white', method="caption", stroke_color="black", stroke_width=6, size=(1080, None))
     subs = SubtitlesClip('spedup.srt', generator)
     subtitles = SubtitlesClip(subs, generator)
     sub_clip = CompositeVideoClip([videoclip, subtitles.set_pos(('center','center'))])
@@ -29,4 +29,4 @@ def videoEditing():
 
 videoEditing()
 
-import instagram_automation
+# import instagram_automation
