@@ -1,9 +1,0 @@
-[10456:12280:0613/153043.608:WARNING:chrome_main_delegate.cc(742)] This is Chrome version 125.0.6422.142 (not a warning)
-[10456:12280:0613/153043.710:INFO:chrome_browser_cloud_management_controller.cc(168)] Starting CBCM Controller Initialization
-[10456:12280:0613/153043.710:INFO:chrome_browser_cloud_management_controller.cc(196)] No machine level policy manager exists.
-[10456:12280:0613/153043.763:WARNING:browser_management_service.cc(128)] EnterpriseLogoUrl fetch failed with error code -1 and MIME type 
-[10456:12280:0613/153045.546:INFO:CONSOLE(0)] "Error with Permissions-Policy header: Unrecognized feature: 'battery'.", source:  (0)
-[10456:12280:0613/153045.717:INFO:CONSOLE(0)] "Error with Permissions-Policy header: Origin trial controlled feature not enabled: 'interest-cohort'.", source:  (0)
-[10456:12280:0613/153045.717:INFO:CONSOLE(0)] "Error with Permissions-Policy header: Origin trial controlled feature not enabled: 'shared-storage'.", source:  (0)
-[10456:12280:0613/153045.717:INFO:CONSOLE(0)] "Error with Permissions-Policy header: Origin trial controlled feature not enabled: 'shared-storage-select-url'.", source:  (0)
-[10456:12280:0613/153045.717:INFO:CONSOLE(0)] "Error with Permissions-Policy header: Unrecognized feature: 'usb-unrestricted'.", source:  (0)
