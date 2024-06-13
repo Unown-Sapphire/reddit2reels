@@ -4,6 +4,9 @@ with open('randompost.txt', 'r+', encoding='utf-8') as clear:
 import json
 import praw
 import random
+from PIL import Image, ImageFont, ImageDraw
+import textwrap 
+import imgrounder
 
 
 with open("Reddit API/redditapiclient.json") as json_data:
@@ -45,6 +48,35 @@ random_post = random.choice(post_list)
 random_title = title_list[post_list.index(random_post)]
 print(random_title)
 print(random_post)
+
+if subreddit == "AmITheAsshole":
+    im = Image.open('posttemplate1.png')
+    im.show()
+    draw = ImageDraw.Draw(im)
+    font = ImageFont.truetype("Poppins-Bold.ttf", 50)
+    height = 160
+    wrappedtext = textwrap.wrap(random_title,35)
+    if len(wrappedtext) > 3:
+        print(len(wrappedtext))
+        wrappedtext = textwrap.wrap(random_title,20)
+    for phrase in wrappedtext:    
+        draw.text((50,height),phrase, (0,0,0), font=font)
+        height += 60
+    imgrounder.imagerounder(im=im)
+elif subreddit == "tifu":
+    im = Image.open('posttemplate2.png')
+    im.show()
+    draw = ImageDraw.Draw(im)
+    font = ImageFont.truetype("Poppins-Bold.ttf", 50)
+    height = 160
+    wrappedtext = textwrap.wrap(random_title,35)
+    if len(wrappedtext) > 3:
+        print(len(wrappedtext))
+        wrappedtext = textwrap.wrap(random_title,20)
+    for phrase in wrappedtext:    
+        draw.text((50,height),phrase, (0,0,0), font=font)
+        height += 60
+    imgrounder.imagerounder(im=im)
 
 with open('randompost.txt', 'r+', encoding='utf-8') as post:
     post.write(random_title)
