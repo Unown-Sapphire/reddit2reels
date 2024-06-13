@@ -8,9 +8,9 @@ from selenium.webdriver.support import expected_conditions as EC
 import pyautogui
 from subreddit import random_title
 
-chrome_driver_path = "C:/Users/dmneh/Downloads/chromedriver-win64/chromedriver-win64/chromdriver.exe"
+chrome_driver_path = "chromedriver-win64/chromedriver-win64/chromdriver.exe"
 
-user_data_dir = "C:/Users/dmneh/Downloads/chrome-user-data"
+user_data_dir = "chrome-user-data"
 
 options = webdriver.ChromeOptions()
 options.add_argument(f"user-data-dir={user_data_dir}")
