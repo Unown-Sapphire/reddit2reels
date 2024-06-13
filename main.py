@@ -1,11 +1,11 @@
 from moviepy.editor import * # type: ignore
 from moviepy.video.tools.subtitles import SubtitlesClip
 import random
-# import subreddit
-# print("Found Subreddit post!")
+import subreddit
+print("Found Subreddit post!")
 
-# import tts_audio
-# print("Finished Composing Audio!")
+import tts_audio
+print("Finished Composing Audio!")
 
 n = random.randint(1,2)
 
@@ -31,4 +31,4 @@ def videoEditing():
 
 videoEditing()
 
-# import instagram_automation
+import instagram_automation
