@@ -50,7 +50,7 @@ print(random_title)
 print(random_post)
 
 if subreddit == "AmITheAsshole":
-    im = Image.open('posttemplate1.png')
+    im = Image.open('images/posttemplate1.png')
     im.show()
     draw = ImageDraw.Draw(im)
     font = ImageFont.truetype("fonts/Poppins-Bold.ttf", 50)
@@ -64,7 +64,7 @@ if subreddit == "AmITheAsshole":
         height += 60
     imgrounder.imagerounder(im=im)
 elif subreddit == "tifu":
-    im = Image.open('posttemplate2.png')
+    im = Image.open('images/posttemplate2.png')
     im.show()
     draw = ImageDraw.Draw(im)
     font = ImageFont.truetype("fonts/Poppins-Bold.ttf", 50)
