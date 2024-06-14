@@ -11,7 +11,7 @@ n = random.randint(1,2)
 
 def videoEditing():
     #Collecting Video and Audio files
-    videoclip = VideoFileClip(f"videos/example_{n}.mp4")
+    videoclip = VideoFileClip(f"videos/example_2.mp4")
     audioclip = AudioFileClip("audios/spedup.mp3")
 
     #Merging audio with video
