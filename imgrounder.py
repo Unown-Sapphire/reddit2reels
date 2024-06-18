@@ -12,4 +12,4 @@ def imagerounder(im, rad=30):
     alpha.paste(circle.crop((rad, 0, rad * 2, rad)), (w - rad, 0))
     alpha.paste(circle.crop((rad, rad, rad * 2, rad * 2)), (w - rad, h - rad))
     im.putalpha(alpha)
-    im.save("output.png")
+    im.save("images/output.png")
