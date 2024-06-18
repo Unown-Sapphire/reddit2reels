@@ -26,7 +26,7 @@ def videoEditing():
     sub_clip.write_videofile("videos/test.mp4", codec="libx264")
     print("Your video is ready!")
 
-videoEditing()
+# videoEditing()
 
 def split_video():
     audio_clip = AudioFileClip("audios/spedup.mp3")
@@ -39,38 +39,61 @@ def split_video():
         n = 0
         m = 1
         while n <= 120:
-            sub_clip = video_file.subclip(0, n+60)
-            sub_clip = CompositeVideoClip([sub_clip])
-            sub_clip.write_videofile(f"videos/test_{m}.mp4", codec="libx264")
-            n += 60
-            m += 1
+            if n == 60 and m == 2:
+                sub_clip = video_file.subclip(60, audio_duration)
+                sub_clip = CompositeVideoClip([sub_clip])
+                sub_clip.write_videofile(f"videos/test_{m}.mp4", codec="libx264")
+                break
+            else:
+                sub_clip = video_file.subclip(0, n+60)
+                sub_clip = CompositeVideoClip([sub_clip])
+                sub_clip.write_videofile(f"videos/test_{m}.mp4", codec="libx264")
+                n += 60
+                m += 1   
     elif audio_duration > 120 and audio_duration <=180:
         n = 0
         m = 1
         while n <= 180:
-            sub_clip = video_file.subclip(0, n+60)
-            sub_clip = CompositeVideoClip([sub_clip])
-            sub_clip.write_videofile(f"videos/test_{m}.mp4", codec="libx264")
-            n += 60
-            m += 1
+            if n == 120 and m == 3:
+                sub_clip = video_file.subclip(60, audio_duration)
+                sub_clip = CompositeVideoClip([sub_clip])
+                sub_clip.write_videofile(f"videos/test_{m}.mp4", codec="libx264")
+                break
+            else:
+                sub_clip = video_file.subclip(0, n+60)
+                sub_clip = CompositeVideoClip([sub_clip])
+                sub_clip.write_videofile(f"videos/test_{m}.mp4", codec="libx264")
+                n += 60
+                m += 1   
     elif audio_duration > 180 and audio_duration <=240:
         n = 0
         m = 1
         while n <= 240:
-            sub_clip = video_file.subclip(0, n+60)
-            sub_clip = CompositeVideoClip([sub_clip])
-            sub_clip.write_videofile(f"videos/test_{m}.mp4", codec="libx264")
-            n += 60
-            m += 1
+            if n == 180 and m == 4:
+                sub_clip = video_file.subclip(60, audio_duration)
+                sub_clip = CompositeVideoClip([sub_clip])
+                sub_clip.write_videofile(f"videos/test_{m}.mp4", codec="libx264")
+                break
+            else:
+                sub_clip = video_file.subclip(0, n+60)
+                sub_clip = CompositeVideoClip([sub_clip])
+                sub_clip.write_videofile(f"videos/test_{m}.mp4", codec="libx264")
+                n += 60
+                m += 1   
 
     elif audio_duration > 240 and audio_duration <=300:
         n = 0
         m = 1
         while n <= 300:
-            sub_clip = video_file.subclip(0, n+60)
-            sub_clip = CompositeVideoClip([sub_clip])
-            sub_clip.write_videofile(f"videos/test_{m}.mp4", codec="libx264")
-            n += 60
-            m += 1
-
+            if n == 240 and m == 5:
+                sub_clip = video_file.subclip(60, audio_duration)
+                sub_clip = CompositeVideoClip([sub_clip])
+                sub_clip.write_videofile(f"videos/test_{m}.mp4", codec="libx264")
+                break
+            else:
+                sub_clip = video_file.subclip(0, n+60)
+                sub_clip = CompositeVideoClip([sub_clip])
+                sub_clip.write_videofile(f"videos/test_{m}.mp4", codec="libx264")
+                n += 60
+                m += 1   
 split_video()
