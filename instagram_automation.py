@@ -42,6 +42,12 @@ for file in os.listdir("videos/video_parts"):
     next_button = wait.until(EC.presence_of_element_located((By.XPATH, "/html/body/div[6]/div[1]/div/div[3]/div/div/div/div/div/div/div/div[1]/div/div/div/div[3]/div/div"))).click()
 
     time.sleep(2)
+    thumbnail_button = wait.until(EC.presence_of_element_located((By.XPATH, "/html/body/div[6]/div[1]/div/div[3]/div/div/div/div/div/div/div/div[2]/div[2]/div/div/div/div/div[1]/div[1]/div/div/div"))).click()
+    time.sleep(5)
+    pyautogui.write(f'C:\\Users\\dmneh\\Desktop\\ADHDTrap\\images\\thumbnail_{m}.png', interval=0.05)
+    pyautogui.press('enter')
+
+    time.sleep(2)
     next2_button = wait.until(EC.presence_of_element_located((By.XPATH, "/html/body/div[6]/div[1]/div/div[3]/div/div/div/div/div/div/div/div[1]/div/div/div/div[3]/div/div"))).click()
 
     time.sleep(3.5)

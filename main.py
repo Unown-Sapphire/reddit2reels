@@ -104,4 +104,6 @@ def split_video():
                 m += 1   
 split_video()
 
+import generator
+
 import instagram_automation
