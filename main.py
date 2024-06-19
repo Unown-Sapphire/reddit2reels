@@ -17,8 +17,11 @@ def videoEditing():
     #Merging audio with video
     new_audioclip = CompositeAudioClip([audioclip])
     videoclip.audio = new_audioclip
-
+    
     audio_duration = audioclip.duration
+    r_time = random.randint(1, round(audio_duration))
+    videoclip.save_frame("images/frame.png", t=r_time)
+    
     #Subtitles generator
     generator = lambda txt: TextClip(txt, font=r'fonts/Burbank Big Condensed Black.otf', fontsize=100, color='white', method="caption", stroke_color="black", stroke_width=4, size=(1080, None))
     subs = SubtitlesClip('spedup.srt', generator)
@@ -35,7 +38,6 @@ def split_video():
     audio_clip = AudioFileClip("audios/spedup.mp3")
     audio_duration = audio_clip.duration
     video_file = VideoFileClip("videos/export.mp4")
-    video_file.save_frame("images/frame.png", t=3)
 
     if audio_duration <= 60:
         pass
