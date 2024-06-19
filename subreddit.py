@@ -53,7 +53,7 @@ if subreddit == "AmITheAsshole":
     im = Image.open('images/posttemplate1.png')
     im.show()
     draw = ImageDraw.Draw(im)
-    font = ImageFont.truetype("fonts/Poppins-Bold.ttf", 50)
+    font = ImageFont.truetype("fonts/Poppins-Bold.ttf", 40)
     height = 160
     wrappedtext = textwrap.wrap(random_title,35)
     if len(wrappedtext) > 3:
@@ -67,7 +67,7 @@ elif subreddit == "tifu":
     im = Image.open('images/posttemplate2.png')
     im.show()
     draw = ImageDraw.Draw(im)
-    font = ImageFont.truetype("fonts/Poppins-Bold.ttf", 50)
+    font = ImageFont.truetype("fonts/Poppins-Bold.ttf", 40)
     height = 160
     wrappedtext = textwrap.wrap(random_title,35)
     if len(wrappedtext) > 3:

@@ -35,6 +35,7 @@ def split_video():
     audio_clip = AudioFileClip("audios/spedup.mp3")
     audio_duration = audio_clip.duration
     video_file = VideoFileClip("videos/export.mp4")
+    video_file.save_frame("images/frame.png", t=3)
 
     if audio_duration <= 60:
         pass

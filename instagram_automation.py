@@ -49,7 +49,7 @@ for file in os.listdir("videos/video_parts"):
     caption_text = wait.until(EC.presence_of_element_located((By.XPATH, "/html/body/div[6]/div[1]/div/div[3]/div/div/div/div/div/div/div/div[2]/div[2]/div/div/div/div[1]/div[2]/div/div[1]/div[1]"))).send_keys(f'{random_title} Part {m}! #reddit #askreddit #aita #tifu #subreddit #subwaysurfers #redditstories #viral #story #storytime')
     share_button = wait.until(EC.presence_of_element_located((By.XPATH, "/html/body/div[6]/div[1]/div/div[3]/div/div/div/div/div/div/div/div[1]/div/div/div/div[3]/div/div"))).click()
 
-    time.sleep(60)
+    time.sleep(180)
 
     m+=1
 
