@@ -4,24 +4,35 @@ import random
 
 def chunks(L, n):
     for i in range(0, len(L), n):
-        yield L[i:i+n]
+        yield L[i:i+n]  
 
-with open('spedup.srt', "r") as srtfile, open('randompost.txt',"r") as posttext:
-    titletext = posttext.readlines(1)
-    text = "/n".join(titletext).rstrip()
+with open('spedup copy.srt', "r+", encoding="utf-8") as srtfile:
+    text = "Today I fucked up by testing to see if anyone in my office actually wanted to talk to me."
     srttext = srtfile.read()
     splitchunks = list(chunks(text.split(" "),3))
     splitsrtchunks = list(chunks(srttext.split("\n"),4))
     indexlist = []
     for x in splitchunks:
         xindex = splitchunks.index(x)
-        x = " ".join(x).rstrip()
-        splitchunks[xindex] = x
+        splitchunks[xindex] =  " ".join(x).rstrip()
     for chunk,y in zip(splitsrtchunks,splitchunks):
         for x in chunk:
             if x == y:
-                indexlist.append(int(chunk[0]))
+                indexlist.append(chunk)
+    length = len(indexlist)
+    while length > 0:
+        for x in indexlist:
+            splitsrtchunks.pop(0)
+            length -= 1
+    srtfile.truncate(0)
+    srtfile.seek(0)
+    for x in splitsrtchunks:
+        element = "\n".join(x)
+        element = f"{element} \n"
+        srtfile.write(element)
+    time = ((indexlist[-1])[1].split("-->"))[-1].split(":")[-1].strip("0").replace(",",".")
     
+        
             
 
 def videoEditing():
