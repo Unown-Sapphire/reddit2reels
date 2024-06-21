@@ -1,6 +1,8 @@
 from moviepy.editor import * # type: ignore
+from moviepy.video.compositing.concatenate import concatenate_videoclips
 from moviepy.video.tools.subtitles import SubtitlesClip
 import random
+from skimage.filters import gaussian
 
 def chunks(L, n):
     for i in range(0, len(L), n):
@@ -30,10 +32,12 @@ with open('spedup copy.srt', "r+", encoding="utf-8") as srtfile:
         element = "\n".join(x)
         element = f"{element} \n"
         srtfile.write(element)
-    time = ((indexlist[-1])[1].split("-->"))[-1].split(":")[-1].strip("0").replace(",",".")
+    #time = ((indexlist[-1])[1].split("-->"))[-1].split(":")[-1].strip("0").replace(",",".")
     
         
-            
+def blur(image):
+    return gaussian(image.astype(float), sigma=4)
+
 
 def videoEditing():
     #Collecting Video and Audio files
@@ -50,9 +54,10 @@ def videoEditing():
     generator = lambda txt: TextClip(txt, font=r'fonts/Burbank Big Condensed Black.otf', fontsize=100, color='white', method="caption", stroke_color="black", stroke_width=4, size=(1080, None))
     subs = SubtitlesClip('spedup.srt', generator)
     subtitles = SubtitlesClip(subs, generator)
-    sub_clip = CompositeVideoClip([videoclip, subtitles.set_pos(('center','center')), img_clip])
+    sub_clip = CompositeVideoClip([videoclip, subtitles.set_pos(('center','center'))])
     #Cropping the video
-    sub_clip = sub_clip.subclip(0, audio_duration)
+    sub_clip = sub_clip.subclip(0,10)
     sub_clip.write_videofile("videos/test.mp4", codec="libx264")
     print(f"Your video is ready!")
 
+videoEditing()
