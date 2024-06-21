@@ -10,8 +10,6 @@ print("Finished Composing Audio!")
 
 new_list = []
 
-random_title = "Today I fucked up by not asking how my wife was"
-
 with open("spedup.srt", "r+", encoding="utf-8") as file:
     file_line = file.readlines(-1)
     for line in file_line:
