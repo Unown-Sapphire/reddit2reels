@@ -1,6 +1,20 @@
 from moviepy.editor import * # type: ignore
 from moviepy.video.tools.subtitles import SubtitlesClip
 import random
+from skimage.filters import gaussian
+from PIL import Image
+
+import os, shutil
+folder = 'videos/video_parts'
+for filename in os.listdir(folder):
+    file_path = os.path.join(folder, filename)
+    try:
+        if os.path.isfile(file_path) or os.path.islink(file_path):
+            os.unlink(file_path)
+        elif os.path.isdir(file_path):
+            shutil.rmtree(file_path)
+    except Exception as e:
+        print('Failed to delete %s. Reason: %s' % (file_path, e))
 
 from subreddit import random_title
 print("Found Subreddit post!")
@@ -8,7 +22,12 @@ print("Found Subreddit post!")
 import tts_audio
 print("Finished Composing Audio!")
 
+
+def blur(image):
+    return gaussian(image.astype(float), sigma=7)
+
 new_list = []
+
 
 with open("spedup.srt", "r+", encoding="utf-8") as file:
     file_line = file.readlines(-1)
@@ -43,9 +62,12 @@ with open("spedup.srt", "r+", encoding="utf-8") as file:
                 a+=1
         if should_break:
             break
-    time = timing[23:len(timing)]
-    time = time.replace(",", ".")
-    print(float(time))
+    if 'timing' in locals():
+        time = timing[23:len(timing)]
+        time = time.replace(",", ".")
+        print(float(time))
+    else:
+        print("Timing was not defined.")
 
     file.truncate(0)
     newer_list = []
@@ -63,18 +85,27 @@ with open("spedup.srt", "r+", encoding="utf-8") as file:
 n = random.randint(1,2)
 
 def videoEditing():
-    #Collecting Video and Audio files
-    videoclip = VideoFileClip(f"videos/example_2.mp4")
+    #get audio duration
     audioclip = AudioFileClip("audios/spedup.mp3")
+    audio_duration = audioclip.duration
+    #Collecting Video and Audio files
+    videoclip_blur = VideoFileClip(f"videos/example_2.mp4").subclip(0, time)
+    videoclip_blur = videoclip_blur.fl_image(blur)
+    videoclip = VideoFileClip(f"videos/example_2.mp4").subclip(time, audio_duration)
+    
+
+    #concantate blurred video and video
+    videoclip = concatenate_videoclips([videoclip_blur, videoclip])
 
     #Merging audio with video
     new_audioclip = CompositeAudioClip([audioclip])
     videoclip.audio = new_audioclip
-    
-    audio_duration = audioclip.duration
+    #save random point of video screenshot
     r_time = random.randint(1, round(audio_duration))
     videoclip.save_frame("images/frame.png", t=r_time)
-
+    #set image clip pos
+    title = Image.open("output.png").convert("RGBA")
+    title = title.resize(size=(1026, 389)).save("output.png")
     img_clip = ImageClip("output.png").set_start(0).set_duration(time).set_pos(("center","center"))
     #Subtitles generator
     generator = lambda txt: TextClip(txt, font=r'fonts/Burbank Big Condensed Black.otf', fontsize=100, color='white', method="caption", stroke_color="black", stroke_width=4, size=(1080, None))
@@ -83,7 +114,7 @@ def videoEditing():
     sub_clip = CompositeVideoClip([videoclip, subtitles.set_pos(('center','center')), img_clip])
     #Cropping the video
     sub_clip = sub_clip.subclip(0, audio_duration)
-    sub_clip.write_videofile("videos/export.mp4", codec="libx264")
+    sub_clip.write_videofile("videos/export.mp4", codec="libx264", threads=4)
     print("Your video is ready!")
 
 videoEditing()
@@ -105,7 +136,7 @@ def split_video():
                 sub_clip.write_videofile(f"videos/video_parts/test_{m}.mp4", codec="libx264")
                 break
             else:
-                sub_clip = video_file.subclip(0, n+60)
+                sub_clip = video_file.subclip(n, n+60)
                 sub_clip = CompositeVideoClip([sub_clip])
                 sub_clip.write_videofile(f"videos/video_parts/test_{m}.mp4", codec="libx264")
                 n += 60
@@ -115,12 +146,12 @@ def split_video():
         m = 1
         while n <= 180:
             if n == 120 and m == 3:
-                sub_clip = video_file.subclip(60, audio_duration)
+                sub_clip = video_file.subclip(120, audio_duration)
                 sub_clip = CompositeVideoClip([sub_clip])
                 sub_clip.write_videofile(f"videos/video_parts/test_{m}.mp4", codec="libx264")
                 break
             else:
-                sub_clip = video_file.subclip(0, n+60)
+                sub_clip = video_file.subclip(n, n+60)
                 sub_clip = CompositeVideoClip([sub_clip])
                 sub_clip.write_videofile(f"videos/video_parts/test_{m}.mp4", codec="libx264")
                 n += 60
@@ -130,12 +161,12 @@ def split_video():
         m = 1
         while n <= 240:
             if n == 180 and m == 4:
-                sub_clip = video_file.subclip(60, audio_duration)
+                sub_clip = video_file.subclip(180, audio_duration)
                 sub_clip = CompositeVideoClip([sub_clip])
                 sub_clip.write_videofile(f"videos/video_parts/test_{m}.mp4", codec="libx264")
                 break
             else:
-                sub_clip = video_file.subclip(0, n+60)
+                sub_clip = video_file.subclip(n, n+60)
                 sub_clip = CompositeVideoClip([sub_clip])
                 sub_clip.write_videofile(f"videos/video_parts/test_{m}.mp4", codec="libx264")
                 n += 60
@@ -146,12 +177,12 @@ def split_video():
         m = 1
         while n <= 300:
             if n == 240 and m == 5:
-                sub_clip = video_file.subclip(60, audio_duration)
+                sub_clip = video_file.subclip(240, audio_duration)
                 sub_clip = CompositeVideoClip([sub_clip])
                 sub_clip.write_videofile(f"videos/video_parts/test_{m}.mp4", codec="libx264")
                 break
             else:
-                sub_clip = video_file.subclip(0, n+60)
+                sub_clip = video_file.subclip(n, n+60)
                 sub_clip = CompositeVideoClip([sub_clip])
                 sub_clip.write_videofile(f"videos/video_parts/test_{m}.mp4", codec="libx264")
                 n += 60

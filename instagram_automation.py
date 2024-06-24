@@ -24,7 +24,7 @@ driver.get("https://www.instagram.com/")
 driver.maximize_window()
 driver.implicitly_wait(20)
 
-wait = WebDriverWait(driver, 10)
+wait = WebDriverWait(driver, 20)
 
 for file in os.listdir("videos/video_parts"):
     create_button = wait.until(EC.presence_of_element_located((By.XPATH , "/html/body/div[2]/div/div/div[2]/div/div/div[1]/div[1]/div[1]/div/div/div/div/div[2]/div[7]/div/span/div/a"))).click()
