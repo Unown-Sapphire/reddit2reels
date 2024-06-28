@@ -51,28 +51,26 @@ print(random_post)
 
 if subreddit == "AmITheAsshole":
     im = Image.open('images/posttemplate1.png')
-    im.show()
     draw = ImageDraw.Draw(im)
-    font = ImageFont.truetype("fonts/Poppins-Bold.ttf", 40)
+    font = ImageFont.truetype("fonts\Quicksand-SemiBold.ttf", 42)
     height = 160
-    wrappedtext = textwrap.wrap(random_title,35)
+    wrappedtext = textwrap.wrap(random_title,45)
     if len(wrappedtext) > 3:
         print(len(wrappedtext))
-        wrappedtext = textwrap.wrap(random_title,20)
+        wrappedtext = textwrap.wrap(random_title,35)
     for phrase in wrappedtext:    
         draw.text((50,height),phrase, (0,0,0), font=font)
         height += 60
     imgrounder.imagerounder(im=im)
 elif subreddit == "tifu":
     im = Image.open('images/posttemplate2.png')
-    im.show()
     draw = ImageDraw.Draw(im)
-    font = ImageFont.truetype("fonts/Poppins-Bold.ttf", 40)
+    font = ImageFont.truetype("fonts\Quicksand-SemiBold.ttf", 42)
     height = 160
-    wrappedtext = textwrap.wrap(random_title,35)
+    wrappedtext = textwrap.wrap(random_title,45)
     if len(wrappedtext) > 3:
         print(len(wrappedtext))
-        wrappedtext = textwrap.wrap(random_title,20)
+        wrappedtext = textwrap.wrap(random_title,35)
     for phrase in wrappedtext:    
         draw.text((50,height),phrase, (0,0,0), font=font)
         height += 60
@@ -87,3 +85,6 @@ with open('randompost.txt', 'r+', encoding='utf-8') as post:
     post.seek(0)
     post.truncate(0)
     post.write(new_text)
+
+im = Image.open("output.png")
+im.show()

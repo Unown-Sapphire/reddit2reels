@@ -19,6 +19,8 @@ for filename in os.listdir(folder):
 from subreddit import random_title
 print("Found Subreddit post!")
 
+print(random_title)
+
 import tts_audio
 print("Finished Composing Audio!")
 
@@ -29,58 +31,49 @@ def blur(image):
 new_list = []
 
 
-with open("spedup.srt", "r+", encoding="utf-8") as file:
+with open(file="spedup.srt", mode="r+", encoding="utf-8") as file:
+    new_list = []
     file_line = file.readlines(-1)
     for line in file_line:
         x = line.rstrip("\n")
         new_list.append(x)
-    for i in new_list:
-        if i == '':
-            new_list.remove(i)
-        else:
-            pass
-    a = 1
-    b = 3
-
-    for i in new_list:
-        x = i.rsplit(".")
-        for y in x:
-            if y == "":
-                x.remove(y)
-            else:
-                continue
-        should_break = False    
-        for y in x:
-            if random_title.endswith(y):
-                timing = new_list[a-2]
-                print(timing)
-                del new_list[0:a]
-                a+=1
-                should_break = True
-                break
-            else:
-                a+=1
-        if should_break:
+    new_list = [i for i in new_list if i != '']
+    
+    for element in new_list:
+        if element.endswith(".") and random_title.endswith(element.rstrip(".")):
+            location = new_list.index(element)
+            print("located: " + element)
+            timing = new_list[location-1]
+            del new_list[0:location+1]
             break
-    if 'timing' in locals():
-        time = timing[23:len(timing)]
-        time = time.replace(",", ".")
-        print(float(time))
-    else:
-        print("Timing was not defined.")
-
+        elif element.endswith("?") and random_title.endswith(element):
+            location = new_list.index(element)
+            print("located: " + element)
+            timing = new_list[location-1]
+            del new_list[0:location+1]
+            break
+        else:
+            print("Element does not match?")
+    
+    writing_list = []
+    for z in new_list:
+        spaced_element = z + "\n"
+        writing_list.append(spaced_element)
+    a = 3
+    while a <= len(new_list):
+        writing_list.insert(a, "\n")
+        a += 4
     file.truncate(0)
-    newer_list = []
-    for i in new_list:
-        spaced_string = i + "\n"
-        newer_list.append(spaced_string)
-    for element in newer_list:
-        while b < len(newer_list) + 1:
-            newer_list.insert(b, "\n")
-            b+=4
-    file.seek(0)        
-    for element in newer_list:
-        file.write(element)      
+    file.seek(0)
+    for line in writing_list:
+        file.write(line)
+
+if "timing" in locals():
+    time = timing[23:len(timing)]
+    time = time.replace(",", ".")
+    print(float(time))
+else:
+    print("Timing is not defined")
 
 n = random.randint(1,2)
 
