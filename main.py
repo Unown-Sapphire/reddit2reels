@@ -28,15 +28,18 @@ print("Finished Composing Audio!")
 def blur(image):
     return gaussian(image.astype(float), sigma=7)
 
+sample_list = []
+
+timing_list = []
+
 new_list = []
 
-
 with open(file="spedup.srt", mode="r+", encoding="utf-8") as file:
-    new_list = []
     file_line = file.readlines(-1)
     for line in file_line:
         x = line.rstrip("\n")
         new_list.append(x)
+    sample_list = new_list
     new_list = [i for i in new_list if i != '']
     
     for element in new_list:
@@ -44,12 +47,14 @@ with open(file="spedup.srt", mode="r+", encoding="utf-8") as file:
             location = new_list.index(element)
             print("located: " + element)
             timing = new_list[location-1]
+            timing_list.append(timing)
             del new_list[0:location+1]
             break
         elif element.endswith("?") and random_title.endswith(element):
             location = new_list.index(element)
             print("located: " + element)
             timing = new_list[location-1]
+            timing_list.append(timing)
             del new_list[0:location+1]
             break
         else:
@@ -60,7 +65,7 @@ with open(file="spedup.srt", mode="r+", encoding="utf-8") as file:
         spaced_element = z + "\n"
         writing_list.append(spaced_element)
     a = 3
-    while a <= len(new_list):
+    while a <= len(sample_list):
         writing_list.insert(a, "\n")
         a += 4
     file.truncate(0)
@@ -68,12 +73,16 @@ with open(file="spedup.srt", mode="r+", encoding="utf-8") as file:
     for line in writing_list:
         file.write(line)
 
-if "timing" in locals():
-    time = timing[23:len(timing)]
+    print(writing_list)
+
+print(timing_list)
+
+for i in timing_list:
+    print(i)
+    time = i[23:len(i)]
+    print(time)
     time = time.replace(",", ".")
     print(float(time))
-else:
-    print("Timing is not defined")
 
 n = random.randint(1,2)
 
