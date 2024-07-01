@@ -40,7 +40,11 @@ def split_text(text, max_length=250):
     
     for chunk in chunks:
         if chunk == ".":
+<<<<<<< HEAD
             chunks.remove(chunks)
+=======
+            chunks.remove(chunk)
+>>>>>>> 1dc292b3491559bc0681d9deb40abf53266b9ca0
         
     return chunks
 
