@@ -29,7 +29,14 @@ def replace_abbreviations(text):
         "TL;DR": "Too long didn't read",
         "Tl;dr": "Too long didn't read",
         "tl;dr": "Too long didn't read",
-        "FU": 'fucked up'
+        "tl:dr": "Too long didn't read",
+        "tldr": "Too long didn't read",
+        "FU": 'fucked up',
+        "MIL": "mother-in-law",
+        "FIL": "father-in-law",
+        "DIL": "daughter-in-law",
+        "SIL": "sister-in-law",
+        "BIL": "brother-in-law"
     }
 
     for abbreviation, replacement in replacements.items():

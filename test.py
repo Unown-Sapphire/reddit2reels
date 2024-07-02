@@ -1,14 +1,12 @@
-import spacy
+import string
 
-# Load English tokenizer, tagger, parser and NER
-nlp = spacy.load("en_core_web_sm")
+def remove_punctuation(input_string):
+    # Create a translation table that maps each punctuation character to None
+    translator = str.maketrans('', '', string.punctuation)
+    # Use the translate method to apply the translation table
+    return input_string.translate(translator)
 
-with open("randompost.txt", "r", encoding="utf-8") as file:
-    posts = file.read()
-    
-# Process whole documents
-text = (posts)
-doc = nlp(text)
-
-# Analyze syntax
-print("Noun phrases:", [chunk.text for chunk in doc.noun_chunks])
+# Example usage
+sentence = "step-brother's workload"
+cleaned_sentence = remove_punctuation(sentence)
+print(cleaned_sentence)

@@ -22,15 +22,16 @@ m = 1
 # Open Instagram
 driver.get("https://www.instagram.com/")
 driver.maximize_window()
-driver.implicitly_wait(20)
+driver.implicitly_wait(100)
 
-wait = WebDriverWait(driver, 20)
+wait = WebDriverWait(driver, 100)
 
 for file in os.listdir("videos/video_parts"):
     create_button = wait.until(EC.presence_of_element_located((By.XPATH , "/html/body/div[2]/div/div/div[2]/div/div/div[1]/div[1]/div[1]/div/div/div/div/div[2]/div[7]/div/span/div/a"))).click()
     post_button = wait.until(EC.presence_of_element_located((By.XPATH , "/html/body/div[2]/div/div/div[2]/div/div/div[1]/div[1]/div[1]/div/div/div/div/div[2]/div[7]/div/span/div/div/div/div[1]/a[1]"))).click()
     time.sleep(5)
-    select_from_computer = wait.until(EC.presence_of_element_located((By.XPATH, "/html/body/div[6]/div[1]/div/div[3]/div/div/div/div/div/div/div/div[2]/div[1]/div/div/div[2]/div/button"))).click()
+    pyautogui.moveTo(x=960, y=720)
+    pyautogui.click()
     time.sleep(5)
     pyautogui.write(f'C:\\Users\\dmneh\\Desktop\\ADHDTrap\\videos\\video_parts\\test_{m}.mp4', interval=0.05)
     pyautogui.press('enter')
@@ -53,7 +54,7 @@ for file in os.listdir("videos/video_parts"):
 
     time.sleep(3.5)
 
-    caption_text = wait.until(EC.presence_of_element_located((By.XPATH, "/html/body/div[6]/div[1]/div/div[3]/div/div/div/div/div/div/div/div[2]/div[2]/div/div/div/div[1]/div[2]/div/div[1]/div[1]"))).send_keys(f'{random_title} Part {m}! #reddit #askreddit #aita #tifu #subreddit #subwaysurfers #redditstories #viral #story #storytime')
+    caption_text = wait.until(EC.presence_of_element_located((By.XPATH, "/html/body/div[6]/div[1]/div/div[3]/div/div/div/div/div/div/div/div[2]/div[2]/div/div/div/div[1]/div[2]/div/div[1]/div[1]"))).send_keys(f"{random_title} Part {m}! #reddit #askreddit #aita #tifu #subreddit #subwaysurfers #redditstories #viral #story #storytime")
     share_button = wait.until(EC.presence_of_element_located((By.XPATH, "/html/body/div[6]/div[1]/div/div[3]/div/div/div/div/div/div/div/div[1]/div/div/div/div[3]/div/div"))).click()
 
     time.sleep(180)

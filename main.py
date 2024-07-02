@@ -28,7 +28,6 @@ print("Finished Composing Audio!")
 def blur(image):
     return gaussian(image.astype(float), sigma=7)
 
-sample_list = []
 
 timing_list = []
 
@@ -39,43 +38,45 @@ with open(file="spedup.srt", mode="r+", encoding="utf-8") as file:
     for line in file_line:
         x = line.rstrip("\n")
         new_list.append(x)
-    sample_list = new_list
     new_list = [i for i in new_list if i != '']
     
     for element in new_list:
-        if element.endswith(".") and random_title.endswith(element.rstrip(".")):
+        if element.endswith(".") and random_title.lower().endswith(element.rstrip(".")):
             location = new_list.index(element)
-            print("located: " + element)
+            print("Located: " + element)
             timing = new_list[location-1]
             timing_list.append(timing)
             del new_list[0:location+1]
             break
-        elif element.endswith("?") and random_title.endswith(element):
+        elif element.endswith("?") and random_title.lower().endswith(element):
             location = new_list.index(element)
-            print("located: " + element)
+            print("Located: " + element)
             timing = new_list[location-1]
             timing_list.append(timing)
             del new_list[0:location+1]
             break
         else:
-            print("Element does not match?")
+            pass
     
     writing_list = []
     for z in new_list:
         spaced_element = z + "\n"
         writing_list.append(spaced_element)
+    if len(writing_list) % 3 == 0:
+        number_of_occurences = int(len(writing_list)/3)
+    else:
+        pass
     a = 3
-    while a <= len(sample_list):
+    n = 0 
+    while n < number_of_occurences:
         writing_list.insert(a, "\n")
-        a += 4
+        a+=4
+        n+=1    
+
     file.truncate(0)
     file.seek(0)
     for line in writing_list:
         file.write(line)
-
-    print(writing_list)
-
-print(timing_list)
 
 for i in timing_list:
     print(i)
