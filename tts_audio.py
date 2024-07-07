@@ -74,11 +74,11 @@ with open ("randompost.txt", encoding='utf-8') as randomposts:
     posts = randomposts.read()
 
 audio_segments = synthesize_text(text=posts)
-print("Synthesized speech...")
+print("---> Synthesized speech...")
 combine_audio()
-print("Combined Audio...")
+print("---> Combined Audio...")
 speedup_audio()
-print('Sped up audio...')
+print('---> Sped up audio...')
 
 print("Process over...")
 
@@ -94,3 +94,5 @@ result = whisper.transcribe(model, audio, word_timestamps=True)
 # Save as an SRT file
 srt_writer = get_writer("srt", ".")
 srt_writer(result, "audios/spedup.mp3", {"max_words_per_line":3})
+
+print("---> Finished writing spedup.srt")

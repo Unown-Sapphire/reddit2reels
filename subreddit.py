@@ -53,8 +53,8 @@ for submissions in subreddit.hot(limit=20):
 
 random_post = random.choice(post_list)
 random_title = title_list[post_list.index(random_post)]
-print(random_title)
-print(random_post)
+# print(random_title)
+# print(random_post)
 
 if subreddit == "AmITheAsshole":
     im = Image.open('images/posttemplate1.png')
@@ -93,5 +93,5 @@ with open('randompost.txt', 'r+', encoding='utf-8') as post:
     post.truncate(0)
     post.write(new_text)
 
-im = Image.open("output.png")
-im.show()
+# im = Image.open("output.png")
+# im.show()

@@ -1,12 +1,10 @@
-import string
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+import time
 
-def remove_punctuation(input_string):
-    # Create a translation table that maps each punctuation character to None
-    translator = str.maketrans('', '', string.punctuation)
-    # Use the translate method to apply the translation table
-    return input_string.translate(translator)
-
-# Example usage
-sentence = "step-brother's workload"
-cleaned_sentence = remove_punctuation(sentence)
-print(cleaned_sentence)
+options = Options()
+options.add_argument("--window-size=1920,1080")
+driver = webdriver.Chrome(options=options)
+driver.get("https://www.google.com/")
+time.sleep(10)
+driver.quit()

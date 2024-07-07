@@ -17,12 +17,10 @@ for filename in os.listdir(folder):
         print('Failed to delete %s. Reason: %s' % (file_path, e))
 
 from subreddit import random_title
-print("Found Subreddit post!")
-
-print(random_title)
+print(" > Fetched Post")
 
 import tts_audio
-print("Finished Composing Audio!")
+print(" > Composed Audio")
 
 
 def blur(image):
@@ -33,31 +31,49 @@ timing_list = []
 
 new_list = []
 
+def location():
+    location = new_list.index(element)
+    print("Located: " + element)
+    timing = new_list[location-1]
+    timing_list.append(timing)
+    del new_list[0:location+1]
+
 with open(file="spedup.srt", mode="r+", encoding="utf-8") as file:
     file_line = file.readlines(-1)
     for line in file_line:
         x = line.rstrip("\n")
         new_list.append(x)
     new_list = [i for i in new_list if i != '']
-    
+    characters_to_remove = ",-'.?!" 
     for element in new_list:
+
+        #translate the element/title to make sure there are no unessecary punctuations
+        translator = str.maketrans("", "", characters_to_remove)
+        translated_title = random_title.translate(translator)
+        translated_element = element.translate(translator)
+
+        #Check for punctuation
         if element.endswith(".") and random_title.lower().endswith(element.rstrip(".")):
-            location = new_list.index(element)
-            print("Located: " + element)
-            timing = new_list[location-1]
-            timing_list.append(timing)
-            del new_list[0:location+1]
+            location()
             break
         elif element.endswith("?") and random_title.lower().endswith(element):
-            location = new_list.index(element)
-            print("Located: " + element)
-            timing = new_list[location-1]
-            timing_list.append(timing)
-            del new_list[0:location+1]
+            location()
+            break
+        elif element.endswith(".") and random_title.lower().endswith(element):
+            location()
+            break
+        elif translated_title.lower().endswith(element):
+            location()
+            break
+        elif random_title.lower().endswith(translated_element):
+            location()
+            break
+        elif translated_title.lower().endswith(translated_element):
+            location()
             break
         else:
             pass
-    
+
     writing_list = []
     for z in new_list:
         spaced_element = z + "\n"
@@ -77,7 +93,8 @@ with open(file="spedup.srt", mode="r+", encoding="utf-8") as file:
     file.seek(0)
     for line in writing_list:
         file.write(line)
-
+print(translated_title)
+    
 for i in timing_list:
     print(i)
     time = i[23:len(i)]
@@ -86,15 +103,16 @@ for i in timing_list:
     print(float(time))
 
 n = random.randint(1,2)
+print(f" > Using video file: example_{n}")
 
 def videoEditing():
     #get audio duration
     audioclip = AudioFileClip("audios/spedup.mp3")
     audio_duration = audioclip.duration
     #Collecting Video and Audio files
-    videoclip_blur = VideoFileClip(f"videos/example_2.mp4").subclip(0, time)
+    videoclip_blur = VideoFileClip(f"videos/example_{n}.mp4").subclip(0, time)
     videoclip_blur = videoclip_blur.fl_image(blur)
-    videoclip = VideoFileClip(f"videos/example_2.mp4").subclip(time, audio_duration)
+    videoclip = VideoFileClip(f"videos/example_{n}.mp4").subclip(time, audio_duration)
     
 
     #concantate blurred video and video
@@ -118,9 +136,10 @@ def videoEditing():
     #Cropping the video
     sub_clip = sub_clip.subclip(0, audio_duration)
     sub_clip.write_videofile("videos/export.mp4", codec="libx264", threads=4)
-    print("Your video is ready!")
 
 videoEditing()
+
+print(" > Created export.mp4")
 
 def split_video():
     audio_clip = AudioFileClip("audios/spedup.mp3")
@@ -128,7 +147,10 @@ def split_video():
     video_file = VideoFileClip("videos/export.mp4")
 
     if audio_duration <= 60:
-        pass
+        sub_clip = video_file.subclip(0, audio_duration)
+        sub_clip = CompositeVideoClip([sub_clip])
+        sub_clip.write_videofile(f"videos/video_parts/test_1.mp4", codec="libx264")
+
     elif audio_duration > 60 and audio_duration <=120:
         n = 0
         m = 1
@@ -192,6 +214,12 @@ def split_video():
                 m += 1   
 split_video()
 
+print(" > Split Videos")
+
 import generator
+print(" > Generated Thumbnail(s)")
 
 import instagram_automation 
+print(" > Uploaded Video")
+
+print("(!) Process Over")
