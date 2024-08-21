@@ -31,6 +31,8 @@ def replace_abbreviations(text):
         "tl;dr": "Too long didn't read",
         "tl:dr": "Too long didn't read",
         "tldr": "Too long didn't read",
+        "TLDR;": "Too long didn't read",
+        "TLDR;": "Too long didn't read",
         "FU": 'fucked up',
         "MIL": "mother-in-law",
         "FIL": "father-in-law",

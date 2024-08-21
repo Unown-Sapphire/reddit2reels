@@ -1,61 +1,51 @@
-from transformers import AutoTokenizer
-from datasets import load_dataset
+import spacy
 
-squad = load_dataset("squad", split="train[:5000]")
-squad = squad.train_test_split(test_size=0.2)
-print(squad["train"][0])
+nlp = spacy.load("en_core_web_sm")
+characters_to_remove = ",-'.?!()[]{}@#$%^&*" 
+translator = str.maketrans("", "", characters_to_remove)
 
-tokenizer = AutoTokenizer.from_pretrained("distilbert/distilbert-base-uncased")
+with open("randompost.txt", "r", encoding="utf-8") as f:
+    text = f.readlines(-1)
 
-def preprocess_function(examples):
-    questions = [q.strip() for q in examples["question"]]
-    inputs = tokenizer(
-        questions,
-        examples["context"],
-        max_length=384,
-        truncation="only_second",
-        return_offsets_mapping=True,
-        padding="max_length",
-    )
+for word in text:
+    translated_text = word.translate(translator)
 
-    offset_mapping = inputs.pop("offset_mapping")
-    answers = examples["answers"]
-    start_positions = []
-    end_positions = []
+    text_list = []
+    pos_list = []
+    shape_list = []
 
-    for i, offset in enumerate(offset_mapping):
-        answer = answers[i]
-        start_char = answer["answer_start"][0]
-        end_char = answer["answer_start"][0] + len(answer["text"][0])
-        sequence_ids = inputs.sequence_ids(i)
-
-        # Find the start and end of the context
-        idx = 0
-        while sequence_ids[idx] != 1:
-            idx += 1
-        context_start = idx
-        while sequence_ids[idx] == 1:
-            idx += 1
-        context_end = idx - 1
-
-        # If the answer is not fully inside the context, label it (0, 0)
-        if offset[context_start][0] > end_char or offset[context_end][1] < start_char:
-            start_positions.append(0)
-            end_positions.append(0)
-        else:
-            # Otherwise it's the start and end token positions
-            idx = context_start
-            while idx <= context_end and offset[idx][0] <= start_char:
-                idx += 1
-            start_positions.append(idx - 1)
-
-            idx = context_end
-            while idx >= context_start and offset[idx][1] >= end_char:
-                idx -= 1
-            end_positions.append(idx + 1)
-
-    inputs["start_positions"] = start_positions
-    inputs["end_positions"] = end_positions
-    return inputs
-
-tokenized_squad = squad.map(preprocess_function, batched=True, remove_columns=squad["train"].column_names)
+    doc = nlp(translated_text)
+    for token in doc:
+        text_list.append(token.text)
+        pos_list.append(token.pos_)
+        shape_list.append(token.shape_)
+    for i, s in enumerate(shape_list):
+        if s in ["Xdd", "xdd", "xd", "Xd"]:
+            for x, y in enumerate(text_list):
+                if i == x:
+                    for q in y:
+                        if q in ["F", "f"]:
+                            print("Female Located")
+                            while i <= len(shape_list):
+                                if text_list[i-1].lower() in ["my", "me", "i", "m"]:
+                                    print("Author Located")
+                                    break
+                                elif text_list[i-2].lower() in ["my", "me", "i", "m"]:
+                                    print("Author located")
+                                    break
+                                else:
+                                    break
+                        elif q in ["M", "m"]:
+                            print("Male Located")
+                            while i <= len(shape_list):
+                                if text_list[i-1].lower() in ["my", "me", "i", "m"]:
+                                    print("Author Located")
+                                    break
+                                elif text_list[i-2].lower() in ["my", "me", "i", "m"]:
+                                    print("Author located")
+                                    break
+                                else:
+                                    print("Author NF")
+                                    break
+                        else:
+                            pass

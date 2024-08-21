@@ -1,5 +1,4 @@
 import spacy
-import nltk
 
 nlp = spacy.load("en_core_web_sm")
 characters_to_remove = ",-'.?!()[]{}@#$%^&*" 
@@ -24,20 +23,55 @@ for word in text:
     for i, s in enumerate(shape_list):
         if s in ["ddX", "ddx", "dx", "dX"]:
             # Female
-            if i > 0 and text_list[i-1].lower() in ["my", "me", "i"]:
+            if i > 0 and text_list[i-1].lower() in ["my", "me", "i", "i'm"]:
                 print(text_list[i-1])
                 print("> Author located! The author is female!")
+                gender = "f"
             else:
                 print(text_list[i-1] if i > 0 else "N/A")
                 print("Not the author")
         elif s in ["dd", "d"]:
             # Male
-            if i > 0 and text_list[i-1].lower() in ["my", "me", "i"]:
+            if i > 0 and text_list[i-1].lower() in ["my", "me", "i", "i'm"]:
                 print(text_list[i-1])
                 print("> Author located! The author is male!")
+                gender = "m"
             else:
                 print(text_list[i-1] if i > 0 else "N/A")
                 print("Not the author")
+        elif s in ["Xdd", "xdd", "xd", "Xd"]:
+            for x, y in enumerate(text_list):
+                if i == x:
+                    for q in y:
+                        if q in ["F", "f"]:
+                            print("Female Located")
+                            while i <= len(shape_list):
+                                if text_list[i-1].lower() in ["my", "me", "i", "m"]:
+                                    print("Author Located")
+                                    gender = "f"
+                                    break
+                                elif text_list[i-2].lower() in ["my", "me", "i", "m"]:
+                                    print("Author located")
+                                    gender = "f"
+                                    break
+                                else:
+                                    break
+                        elif q in ["M", "m"]:
+                            print("Male Located")
+                            while i <= len(shape_list):
+                                if text_list[i-1].lower() in ["my", "me", "i", "m"]:
+                                    print("Author Located")
+                                    gender = "m"
+                                    break
+                                elif text_list[i-2].lower() in ["my", "me", "i", "m"]:
+                                    print("Author located")
+                                    gender = "m"
+                                    break
+                                else:
+                                    print("Author NF")
+                                    gender = 'nb'
+                                    break
+                        else:
+                            pass
         else:
-            #To-do (Might have to actually use NLP to get the gender.)
-            pass
+            gender = "nb"

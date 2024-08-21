@@ -10,7 +10,7 @@ import os
 
 chrome_driver_path = "chromedriver-win64/chromedriver-win64/chromdriver.exe"
 
-user_data_dir = "C:/Users/dmneh/Downloads/chrome-user-data"
+user_data_dir = "C:/Users/varun/Downloads/chrome-user-data"
 
 options = webdriver.ChromeOptions()
 options.add_argument(f"user-data-dir={user_data_dir}")
@@ -27,13 +27,17 @@ driver.implicitly_wait(100)
 wait = WebDriverWait(driver, 100)
 
 for file in os.listdir("videos/video_parts"):
-    create_button = wait.until(EC.presence_of_element_located((By.XPATH , "/html/body/div[2]/div/div/div[2]/div/div/div[1]/div[1]/div[1]/div/div/div/div/div[2]/div[7]/div/span/div/a"))).click()
-    post_button = wait.until(EC.presence_of_element_located((By.XPATH , "/html/body/div[2]/div/div/div[2]/div/div/div[1]/div[1]/div[1]/div/div/div/div/div[2]/div[7]/div/span/div/div/div/div[1]/a[1]"))).click()
     time.sleep(5)
-    pyautogui.moveTo(x=960, y=720)
+    pyautogui.moveTo(x=120, y=920)
+    pyautogui.click()
+    time.sleep(1)
+    pyautogui.moveTo(120, 950)
+    pyautogui.click()
+    time.sleep(1)
+    pyautogui.moveTo(x=960, y=790)
     pyautogui.click()
     time.sleep(5)
-    pyautogui.write(f'C:\\Users\\dmneh\\Desktop\\ADHDTrap\\videos\\video_parts\\test_{m}.mp4', interval=0.05)
+    pyautogui.write(f'C:\\Users\\varun\\Desktop\\ADHDTrap\\videos\\video_parts\\test_{m}.mp4', interval=0.05)
     pyautogui.press('enter')
 
     time.sleep(2)
@@ -46,7 +50,7 @@ for file in os.listdir("videos/video_parts"):
     time.sleep(2)
     thumbnail_button = wait.until(EC.presence_of_element_located((By.XPATH, "/html/body/div[6]/div[1]/div/div[3]/div/div/div/div/div/div/div/div[2]/div[2]/div/div/div/div/div[1]/div[1]/div/div/div"))).click()
     time.sleep(5)
-    pyautogui.write(f'C:\\Users\\dmneh\\Desktop\\ADHDTrap\\images\\thumbnail_{m}.png', interval=0.05)
+    pyautogui.write(f'C:\\Users\\varun\\Desktop\\ADHDTrap\\images\\thumbnail_{m}.png', interval=0.05)
     pyautogui.press('enter')
 
     time.sleep(2)

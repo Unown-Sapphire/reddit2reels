@@ -4,11 +4,21 @@ import torch
 from TTS.api import TTS
 from pydub.effects import speedup
 from pydub import AudioSegment
+from gender_recog import gender
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
 from pydub import AudioSegment
 import re
+import random
+
+male_list = ["Aaron Dreschner", "Abrahan Mack", "Adde Michal", "Baldur Sanjin", "Craig Gutsy", "Damian Black", "Dionisio Schuyler", "Filip Traverse", "Gilberto Mathias"]
+female_list = ["Alexandra Hisakawa", "Alison Dietlinde", "Ana Florence", "Andrew Chipper", "Annmarie Nele", "Asya Anara", "Badr Odhiambo", "Barbora MacLean"]
+
+random_male_voice = random.choice(male_list)
+print(f"(!) If the author is male using this voice: {random_male_voice}")
+random_female_voice = random.choice(female_list)
+print(f"(!) If the author is female using this voice: {random_female_voice}")
 
 import os, shutil
 folder = 'audios'
@@ -50,12 +60,27 @@ def synthesize_text(text):
     chunks = split_text(text)
     n = 1
     for chunk in chunks:
-        if n <= 9:
-            tts.tts_to_file(chunk, speaker="Abrahan Mack", language="en", file_path=f"audios/line_0{n}.wav")
-            n+=1
-        else:
-            tts.tts_to_file(chunk, speaker="Abrahan Mack", language="en", file_path=f"audios/line_{n}.wav")
-            n+=1
+        if gender == "m":
+            if n <= 9:
+                tts.tts_to_file(chunk, speaker=random_male_voice, language="en", file_path=f"audios/line_0{n}.wav")
+                n+=1
+            else:
+                tts.tts_to_file(chunk, speaker=random_male_voice, language="en", file_path=f"audios/line_{n}.wav")
+                n+=1
+        elif gender == "f":
+            if n <= 9:
+                tts.tts_to_file(chunk, speaker=random_female_voice, language="en", file_path=f"audios/line_0{n}.wav")
+                n+=1
+            else:
+                tts.tts_to_file(chunk, speaker=random_female_voice, language="en", file_path=f"audios/line_{n}.wav")
+                n+=1
+        elif gender == "nb":
+            if n <= 9:
+                tts.tts_to_file(chunk, speaker="Badr Odhiambo", language="en", file_path=f"audios/line_0{n}.wav")
+                n+=1
+            else:
+                tts.tts_to_file(chunk, speaker="Badr Odhiambo", language="en", file_path=f"audios/line_{n}.wav")
+                n+=1
 def combine_audio():
     audiosegment_list = []
     combined_list = os.listdir(path="audios")
@@ -63,10 +88,10 @@ def combine_audio():
         audio = AudioSegment.from_wav(f"audios/{i}")
         audiosegment_list.append(audio)
     full_audio = sum(audiosegment_list)
-    full_audio.export("output.wav", format="mp3")
+    full_audio.export("output.mp3", format="mp3")
 
 def speedup_audio():
-    sound = AudioSegment.from_mp3("output.wav")
+    sound = AudioSegment.from_mp3("output.mp3")
     sound = speedup(seg=sound, playback_speed=1.2)
     sound.export("audios/spedup.mp3", format="mp3")  
 
